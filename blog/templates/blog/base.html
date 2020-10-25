@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Medium Static Editor -->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <!-- Custom CSS -->
+    <!-- color animation css copied from https://codepen.io/thapliyalshivam/pen/dvgXVO -->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,200&family=Russo+One&display=swap" rel="stylesheet">
+  </head>
+  <body class="loader">
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-default techfont custom-navbar">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{% url 'post_list' %}" class="navbar-brand bigbrand">Blog</a>
+          </li>
+          <li>
+            <a href="{% url 'about' %}" class="">About</a>
+          </li>
+          <li>
+            <a target="_blank" href="https://github.com/rkshaon" class="">Github</a>
+          </li>
+          <li>
+            <a target="_blank" href="https://www.linkedin.com/in/rkshaon/" class="">LinkedIn</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li>
+            <a href="{% url 'post_new' %}" class="">New Post</a>
+          </li>
+          <li>
+            <a href="{% url 'post_draft_list' %}" class="">Drafts</a>
+          </li>
+          <li>
+            <a href="{% url 'logout' %}" class="">Logout</a>
+          </li>
+          <li>
+            <a>Welcome, {{ user.username }}</a>
+          </li>
+          {% else %}
+          <li>
+            <a href="{% url 'login' %}" class="nav navbar-right"><span class="glyphicon glyphicon-user">Login</span></a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <!-- Content Block -->
+    <div class="content container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="blog_posts">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
